@@ -1,1 +1,2 @@
-PCB documenation
+PCB documentation
+    List of pcb files
