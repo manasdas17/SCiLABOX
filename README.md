@@ -1,6 +1,6 @@
 # SCiLABOX
 Electronics lab in a box
-
+------------------------------
 
      SCiLABOX is a low cost but competitive open source electronics lab in a box.
 Now adays most of the students lack good equipments because of unbearable price.
@@ -9,6 +9,7 @@ two 14 bit analog channels with a  smplerate of 100 mhx max,two multimeter pairs
 modules and more...It only costs less than $250.
 This uses an arm-cortex-m3 controllerstm32f103vct8 ,xilinx spartan6 fpga,and two
 channel 14 bit 100mhz dac from lineartechnologies.
+
 ------------------------------------------------------------------------------------------
 STM32f103vct8  :-
 ------------------
