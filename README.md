@@ -22,5 +22,5 @@ Xilinx spartan6 fpga :-
 ------------------------
 
     Handles data acquisition,trigger cintrols,FFT and other hard coded functions
-    
+locks upto 150 mhz with current implementation
 -------------------------------------------------------------------------------------------
