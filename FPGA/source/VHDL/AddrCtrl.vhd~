@@ -13,11 +13,11 @@ entity AddrCtrl is
 	port
 		(
 			Clrw	: in	std_logic;
-			Wclk	: in	std_logic;
+            		Wclk	: in	std_logic;
 			Start	: in	std_logic;
 			nRclk	: in	std_logic;
-			RE		: in	std_logic;
-			H_L		: in	std_logic;
+			RE	: in	std_logic;
+			H_L	: in	std_logic;
 			Depth	: in	std_logic_vector(11 downto 0);
 			PerCnt	: in	std_logic_vector(11 downto 0);
 			Delay	: in	std_logic_vector(31 downto 0);
