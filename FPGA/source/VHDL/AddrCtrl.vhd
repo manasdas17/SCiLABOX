@@ -1,6 +1,6 @@
 //******************(C) COPYRIGHT SCiMOS Systems**********************
 //*		Pre-sampling FIFO address counter and control module		 *
-//*Version : 1.x								Developer	:veeYceeY*
+//*Version : 1.x						Developer:veeYceeY           *
 //********************************************************************
 
 library ieee;
