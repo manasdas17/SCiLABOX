@@ -1,14 +1,25 @@
+//******************(C) COPYRIGHT SCiMOS Systems**********************
+//*		Pre-sampling FIFO address counter and control module		 *
+//*Version : 1.x								Developer	:veeYceeY*
+//********************************************************************
+
+library ieee;
+use library ieee.std_logic_1164.all;
+use library ieee.unsigned.all;
+use library ieee.unsigned_arith.all;
+
+
 entity AddrCtrl is
 	port
 		(
 			Clrw	: in	std_logic;
-			Wclk	: in	std-logic;
+            Wclk	: in	std_logic;
 			Start	: in	std_logic;
 			nRclk	: in	std_logic;
-			RE	: in	std_logic;
-			H_L	: in	std_logic;
+			RE		: in	std_logic;
+			H_L		: in	std_logic;
 			Depth	: in	std_logic_vector(11 downto 0);
-			PerCnt	: in	std-logic_vector(11 downto 0);
+			PerCnt	: in	std_logic_vector(11 downto 0);
 			Delay	: in	std_logic_vector(31 downto 0);
 			Sampled	: out	std_logic;
 			Ready	: out	std_logic;
@@ -21,37 +32,70 @@ entity AddrCtrl is
 
 architecture AddrCtrl_beh of AddrCtrl is
 
-signal iclk	: std_logic	:='0';
-
+signal iclk			:	std_logic	:='0';
+signal loaded		:	std_logic	:='0';
+signal Pcnt			:	std_logic_vector(12 downto 0);
+signal Bptr			:	std_logic_vector(11 downto 0);
+signal DelayCnt		:	std_logic_vector(31 downto 0);
 begin
+
+
 	iClk<=wclk or Clrw;
-	
+	Empty<=Rptr=Wptr?'1':'0';
+
+
 	process(iclk)
 	begin
 		if (iClk='1' and iClk'event) then
 			if Clrw='1' then
-				Full<='0';
-				Pcnt<='0';
-				Sampled<='0';
+				Full	<='0';
+				Pcnt	<='0';
+				Sampled	<='0';
 				DelayCnt<='0';
-				Ready='0';
+				Ready	<='0';
 			else
-			begin
 				if Start='1' then
 					DelayCnt<=DelayCnt+'1';
 				end if;
 				if pcnt>=PerCnt then
-					Sampled<='1';
+					Sampled	<='1';
 				end if;
 				if Full='0' then
-					Wptr<=Wptr+1;
+					Wptr	<=Wptr+1;
 				end if;
 				if Pcnt>=depth then
-					Full<=Ready;
+					Full	<=Ready;
 				else
-					Pcnt<=Pcnt+1;
+					Pcnt	<=Pcnt+1;
+				end if;
+				if Start='0' and Pcnt>=PerCnt then
+					Pcnt	<=PerCnt;
+				end if;
+				if DelayCnt=Delay then
+					Ready	<='1';
+					Bptr	<=Wptr;
+					Pcnt	<=PerCnt;
 				end if;
 			end if;
 		end if;
-	end
+	end process;
+
+	process(iclk)
+	begin
+		if iclk='1' and iclk'event then
+			if Clrw='1' then
+				Loaded	<='0';
+				Rptr	<='0';
+			else
+				if H_L='1' and RE='1' then
+					Rpt	<=Rptr+'1';
+				end if;
+				if H_L='1' and RE='1' and Loaded='0' and Start='1; then
+					Loaded	<='1';
+					Rptr	<=Bptr-151;
+				end if;
+			end if;
+		end if;
+	end process;
+
 end AddrCtrl_beh;
