@@ -21,9 +21,37 @@ entity AddrCtrl is
 
 architecture AddrCtrl_beh of AddrCtrl is
 
+signal iclk	: std_logic	:='0';
+
 begin
-
+	iClk<=wclk or Clrw;
 	
-	process(Wclk,Clrw)
+	process(iclk)
+	begin
+		if (iClk='1' and iClk'event) then
+			if Clrw='1' then
+				Full<='0';
+				Pcnt<='0';
+				Sampled<='0';
+				DelayCnt<='0';
+				Ready='0';
+			else
+			begin
+				if Start='1' then
+					DelayCnt<=DelayCnt+'1';
+				end if;
+				if pcnt>=PerCnt then
+					Sampled<='1';
+				end if;
+				if Full='0' then
+					Wptr<=Wptr+1;
+				end if;
+				if Pcnt>=depth then
+					Full<=Ready;
+				else
+					Pcnt<=Pcnt+1;
+				end if;
+			end if;
+		end if;
+	end
 end AddrCtrl_beh;
-
