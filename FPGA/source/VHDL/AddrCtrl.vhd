@@ -3,6 +3,8 @@
 //*Version : 1.x						Developer:veeYceeY           *
 //********************************************************************
 
+
+
 library ieee;
 use library ieee.std_logic_1164.all;
 use library ieee.unsigned.all;
@@ -33,10 +35,10 @@ entity AddrCtrl is
 architecture AddrCtrl_beh of AddrCtrl is
 
 signal iclk		:	std_logic			:='0';
-signal loaded		:	std_logic			:='0';
+signal loaded	:	std_logic			:='0';
 signal Pcnt		:	std_logic_vector(12 downto 0);
 signal Bptr		:	std_logic_vector(11 downto 0);
-signal DelayCnt		:	std_logic_vector(31 downto 0);
+signal DelayCnt	:	std_logic_vector(31 downto 0);
 begin
 
 
